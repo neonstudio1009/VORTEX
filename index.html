@@ -144,7 +144,7 @@ calM.setDate(1);
 if(DB.get('collapsed',false))document.body.classList.add('collapsed');
 function toggleSide(){const c=document.body.classList.toggle('collapsed');DB.set('collapsed',c);setTimeout(()=>{if(cur=='report')R.report()},320)}
 function drawer(o){document.body.classList.toggle('open',o)}
-function nav(){$('#nav').innerHTML=`<div class="sh"><div class="brand"><div class="logo">⚡ OMEGA</div><div class="ver">LEARNING CORE v2.1</div></div><button class="tg" onclick="toggleSide()" title="收合 / 展開側欄" aria-label="收合或展開側欄"><span class="ar">«</span></button></div>`+pages.map(p=>`<button class="nav ${p[0]==cur?'on':''}" title="${p[2]}" onclick="go('${p[0]}')"><span class="ic">${p[1]}</span><span class="lb">${p[2]}</span></button>`).join('')}
+function nav(){$('#nav').innerHTML=`<div class="sh"><div class="brand"><div class="logo">⚡ VORTEX</div><div class="ver">LEARNING CORE v2.1</div></div><button class="tg" onclick="toggleSide()" title="收合 / 展開側欄" aria-label="收合或展開側欄"><span class="ar">«</span></button></div>`+pages.map(p=>`<button class="nav ${p[0]==cur?'on':''}" title="${p[2]}" onclick="go('${p[0]}')"><span class="ic">${p[1]}</span><span class="lb">${p[2]}</span></button>`).join('')}
 function go(p){cur=p;drawer(false);nav();R[p]();scrollTo(0,0)}
 addEventListener('keydown',e=>{if(e.key==='Escape')drawer(false)});
 const head=(t,s)=>`<h1>${t}</h1><p class="sub">${s}</p>`;
