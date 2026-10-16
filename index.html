@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OMEGA 學習核心</title>
+<style>
+:root{--bg:#050816;--card:rgba(255,255,255,.055);--bd:rgba(120,200,255,.18);--tx:#e8ecff;--mu:#8f9bc7;--a:#00e5ff;--b:#8b5cf6;--c:#ff2bd6;--ok:#4ade80;--bad:#fb7185;--side:236px}
+body.collapsed{--side:78px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:system-ui,"Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 12% 8%,rgba(0,229,255,.16),transparent 40%),radial-gradient(circle at 88% 85%,rgba(139,92,246,.2),transparent 45%),radial-gradient(circle at 70% 20%,rgba(255,43,214,.08),transparent 35%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(0,229,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.06) 1px,transparent 1px);background-size:44px 44px;animation:grid 14s linear infinite;mask-image:linear-gradient(#000 30%,transparent)}
+@keyframes grid{to{background-position:0 44px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+button,input,select,textarea{font:inherit;color:inherit}
+.side{position:fixed;left:0;top:0;bottom:0;width:var(--side);padding:14px 12px;background:rgba(5,8,22,.82);backdrop-filter:blur(16px);border-right:1px solid var(--bd);display:flex;flex-direction:column;gap:5px;z-index:40;overflow-y:auto;overflow-x:hidden;transition:width .28s ease,transform .28s ease}
+.sh{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:4px 2px 14px;min-height:56px}
+.brand{overflow:hidden;white-space:nowrap}
+.logo{font-weight:900;font-size:24px;letter-spacing:4px;background:linear-gradient(90deg,var(--a),var(--b),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 8px rgba(0,229,255,.5));padding-left:8px}
+.ver{font-size:10px;color:var(--mu);letter-spacing:2px;padding-left:8px}
+.tg{flex:0 0 auto;width:34px;height:34px;border-radius:10px;border:1px solid var(--bd);background:var(--card);cursor:pointer;color:var(--a);font-size:16px;line-height:1;transition:.2s}
+.tg:hover{background:rgba(0,229,255,.15);box-shadow:0 0 12px rgba(0,229,255,.35)}
+.tg .ar{display:inline-block;transition:transform .28s}
+.nav{background:none;border:0;text-align:left;padding:11px 12px;border-radius:12px;cursor:pointer;color:var(--mu);display:flex;gap:12px;align-items:center;font-size:15px;transition:.2s;white-space:nowrap;overflow:hidden;position:relative}
+.nav .ic{font-size:20px;width:24px;text-align:center;flex:0 0 24px}
+.nav:hover{background:var(--card);color:var(--tx)}
+.nav.on{background:linear-gradient(90deg,rgba(0,229,255,.2),rgba(139,92,246,.2));color:#fff;box-shadow:inset 0 0 0 1px var(--bd),0 0 16px rgba(0,229,255,.15)}
+body.collapsed .brand{display:none}
+body.collapsed .sh{justify-content:center;padding-left:0;padding-right:0}
+body.collapsed .tg .ar{transform:rotate(180deg)}
+body.collapsed .nav{padding:11px 0;justify-content:center}
+body.collapsed .nav .lb{display:none}
+main{margin-left:var(--side);padding:28px;max-width:1120px;transition:margin-left .28s ease}
+#menu,#ov{display:none}
+h1{font-size:28px;margin-bottom:4px;letter-spacing:1px}
+.sub{color:var(--mu);margin-bottom:20px;font-size:14px}
+h3{margin-bottom:10px;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;backdrop-filter:blur(10px);margin-bottom:16px;position:relative;box-shadow:0 0 0 1px rgba(255,255,255,.02) inset,0 8px 30px rgba(0,0,0,.25)}
+.card::before{content:"";position:absolute;left:14px;right:14px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--a),transparent);opacity:.6}
+.grid .card{margin-bottom:0}
+.stat{font-size:34px;font-weight:900;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{background:linear-gradient(90deg,var(--a),var(--b));color:#03101f;border:0;padding:10px 16px;border-radius:12px;font-weight:800;cursor:pointer;transition:.2s;box-shadow:0 0 14px rgba(0,229,255,.3)}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.12)}
+.btn:disabled{opacity:.45;cursor:default;transform:none;box-shadow:none}
+.btn.g{background:var(--card);color:var(--tx);border:1px solid var(--bd);box-shadow:none}
+.btn.s{padding:6px 10px;font-size:13px}
+input,select,textarea{background:rgba(255,255,255,.07);border:1px solid var(--bd);border-radius:10px;padding:10px;width:100%;outline:none;min-width:0}
+input:focus,select:focus,textarea:focus{border-color:var(--a);box-shadow:0 0 10px rgba(0,229,255,.3)}
+select option{color:#000}
+textarea{min-height:110px;resize:vertical}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.row>*{flex:1;min-width:120px}.row>.btn{flex:0 0 auto}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--bd);border-radius:12px;margin-bottom:8px;background:rgba(255,255,255,.03)}
+.item>div:first-child{min-width:0;word-break:break-word}
+.item.done .t{text-decoration:line-through;opacity:.5}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--bd);color:var(--mu);white-space:nowrap;display:inline-block}
+.hi{color:var(--bad);border-color:var(--bad)}.md{color:#fbbf24;border-color:#fbbf24}.lo{color:var(--ok);border-color:var(--ok)}
+.bar{height:10px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:8px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--b),var(--c));box-shadow:0 0 12px var(--a);transition:width .5s}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.chip{font-size:26px;padding:8px 10px;border-radius:12px;border:1px solid var(--bd);background:rgba(0,0,0,.25);box-shadow:0 0 12px rgba(0,229,255,.25)}
+.tt{overflow-x:auto}
+table.tb{border-collapse:collapse;width:100%;min-width:560px}
+.tb th,.tb td{border:1px solid var(--bd);padding:6px;font-size:12px;height:46px;vertical-align:top;text-align:center;width:16%}
+.tb th{color:var(--mu);height:auto}
+.cls{border-radius:8px;padding:4px;font-size:12px;color:#03101f;font-weight:700;cursor:pointer;word-break:break-all}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal div{min-height:52px;border:1px solid var(--bd);border-radius:8px;padding:4px;font-size:12px;overflow:hidden}
+.cal .h{min-height:0;border:0;color:var(--mu);text-align:center}
+.cal .e{border:0}
+.cal .today{border-color:var(--a);box-shadow:0 0 10px rgba(0,229,255,.5)}
+.dot{display:block;font-size:10px;background:var(--b);color:#fff;border-radius:4px;padding:1px 3px;margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer}
+.dot.t{background:var(--c)}
+.ring{width:230px;height:230px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--a) var(--p,0%),rgba(255,255,255,.08) 0);box-shadow:0 0 30px rgba(0,229,255,.3)}
+.ring>div{width:200px;height:200px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:46px;font-weight:900;font-variant-numeric:tabular-nums}
+.chat{height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.msg{max-width:80%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.5;word-break:break-word}
+.msg.me{align-self:flex-end;background:linear-gradient(90deg,var(--a),var(--b));color:#03101f}
+.msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--bd)}
+.gear{text-align:center}
+.gear .gi{font-size:56px;margin:4px 0;filter:drop-shadow(0 0 12px currentColor)}
+.gear.r0{color:#9fb3c8}.gear.r1{color:#38bdf8;border-color:#38bdf8}.gear.r2{color:#c084fc;border-color:#c084fc;box-shadow:0 0 18px rgba(192,132,252,.3)}.gear.r3{color:#fbbf24;border-color:#fbbf24;box-shadow:0 0 22px rgba(251,191,36,.4)}
+.gear h3,.gear p{color:var(--tx)}.gear .rk{font-size:12px;letter-spacing:2px;margin-bottom:6px}
+.gear.own{background:rgba(0,229,255,.08)}
+.opt{display:block;width:100%;text-align:left;margin-bottom:8px;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--card);cursor:pointer}
+.opt.ok{border-color:var(--ok);background:rgba(74,222,128,.15)}.opt.no{border-color:var(--bad);background:rgba(251,113,133,.15)}
+canvas{width:100%;display:block}
+.pts{position:fixed;right:16px;top:14px;background:rgba(5,8,22,.7);border:1px solid var(--bd);padding:6px 14px;border-radius:99px;backdrop-filter:blur(10px);z-index:30;font-size:14px;box-shadow:0 0 14px rgba(0,229,255,.25)}
+.toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%) translateY(20px);background:linear-gradient(90deg,var(--a),var(--b));color:#03101f;font-weight:800;padding:10px 18px;border-radius:99px;opacity:0;transition:.3s;z-index:99;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:800px){
+body.collapsed{--side:236px}
+.side{width:250px;transform:translateX(-105%);box-shadow:none}
+body.open .side{transform:none;box-shadow:0 0 40px rgba(0,0,0,.6)}
+body.collapsed .brand{display:block}
+body.collapsed .sh{justify-content:space-between}
+body.collapsed .nav{padding:11px 12px;justify-content:flex-start}
+body.collapsed .nav .lb{display:inline}
+body.collapsed .tg .ar{transform:none}
+.tg{display:none}
+#menu{display:block;position:fixed;left:10px;top:8px;z-index:35;width:40px;height:36px;border-radius:10px;border:1px solid var(--bd);background:rgba(5,8,22,.75);backdrop-filter:blur(10px);color:var(--a);font-size:20px;cursor:pointer}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:38;opacity:0;pointer-events:none;transition:.28s;display:block}
+body.open #ov{opacity:1;pointer-events:auto}
+main{margin-left:0;padding:16px 14px 60px}
+h1{font-size:22px;margin-top:38px}
+.pts{top:8px;right:8px;font-size:12px}
+.msg{max-width:92%}
+.ring{width:200px;height:200px}.ring>div{width:172px;height:172px;font-size:38px}
+.cal div{min-height:44px;padding:2px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<button id="menu" onclick="drawer(true)" aria-label="開啟選單">☰</button>
+<div id="ov" onclick="drawer(false)"></div>
+<div class="pts" id="pts">LV1 ⭐ 0</div>
+<nav class="side" id="nav"></nav>
+<main id="app"></main>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const DB={get(k,d){try{const v=JSON.parse(localStorage.getItem('om_'+k));return v===null||v===undefined?d:v}catch(e){return d}},set(k,v){try{localStorage.setItem('om_'+k,JSON.stringify(v))}catch(e){}}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let S={courses:DB.get('courses',[]),events:DB.get('events',[]),tasks:DB.get('tasks',[]),notes:DB.get('notes',[]),quizzes:DB.get('quizzes',[]),records:DB.get('records',[]),pomo:DB.get('pomo',[]),portfolio:DB.get('portfolio',[]),pts:DB.get('pts',0),xp:DB.get('xp',0),items:DB.get('items',[]),chat:DB.get('chat',[])};
+const GEAR=[['🔋','奈米電池',40,5,0],['🎧','神經耳機',90,10,0],['🥽','AR 戰術眼鏡',160,15,1],['🦾','機械義肢',280,20,1],['🛰️','軌道衛星',450,30,2],['⚛️','核融合反應爐',750,45,2],['🧠','量子處理器',1300,70,3],['🚀','星際戰艦',2200,100,3]];
+const RK=['普通','稀有','史詩','傳說'];
+const RANKS=['新兵','學徒','駭客','工程師','指揮官','傳奇'];
+const lv=()=>Math.floor(Math.sqrt(S.xp/20))+1;
+const mult=()=>1+S.items.reduce((a,i)=>{const g=GEAR.find(x=>x[0]==i);return a+(g?g[3]:0)},0)/100;
+function addPts(n){const g=Math.max(1,Math.round(n*mult()));S.pts+=g;S.xp+=g;save('pts');save('xp');return g}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2200)}
+function save(k){DB.set(k,S[k]);$('#pts').textContent='LV'+lv()+' ⭐ '+S.pts}
+const pages=[['home','🏠','總覽'],['sched','📅','課表'],['task','✅','任務'],['note','📝','筆記'],['quiz','🧠','練習'],['report','📊','報表'],['pomo','🍅','番茄鐘'],['port','🎓','歷程'],['ai','🤖','助手'],['shop','⚙️','裝備庫']];
+const colors=['#00e5ff','#a78bfa','#f9a8d4','#fde68a','#86efac','#fdba74'];
+const days=['一','二','三','四','五'];
+const p2=n=>String(n).padStart(2,'0');
+const fmt=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());
+const today=()=>fmt(new Date());
+const dleft=d=>Math.round((new Date(d+'T00:00:00')-new Date(today()+'T00:00:00'))/864e5);
+let cur='home',calM=new Date(),timer=null,P={tot:0,left:0};
+calM.setDate(1);
+if(DB.get('collapsed',false))document.body.classList.add('collapsed');
+function toggleSide(){const c=document.body.classList.toggle('collapsed');DB.set('collapsed',c);setTimeout(()=>{if(cur=='report')R.report()},320)}
+function drawer(o){document.body.classList.toggle('open',o)}
+function nav(){$('#nav').innerHTML=`<div class="sh"><div class="brand"><div class="logo">⚡ OMEGA</div><div class="ver">LEARNING CORE v2.1</div></div><button class="tg" onclick="toggleSide()" title="收合 / 展開側欄" aria-label="收合或展開側欄"><span class="ar">«</span></button></div>`+pages.map(p=>`<button class="nav ${p[0]==cur?'on':''}" title="${p[2]}" onclick="go('${p[0]}')"><span class="ic">${p[1]}</span><span class="lb">${p[2]}</span></button>`).join('')}
+function go(p){cur=p;drawer(false);nav();R[p]();scrollTo(0,0)}
+addEventListener('keydown',e=>{if(e.key==='Escape')drawer(false)});
+const head=(t,s)=>`<h1>${t}</h1><p class="sub">${s}</p>`;
+const R={
+home(){
+ const up=S.tasks.filter(t=>!t.done).sort((a,b)=>a.date.localeCompare(b.date));
+ const tm=S.pomo.filter(p=>p.date==today()).reduce((a,b)=>a+b.min,0);
+ const wd=(new Date().getDay()+6)%7,tc=S.courses.filter(c=>c.day==wd);
+ let tip='目前沒有緊急事項，保持節奏 ✨';
+ if(up[0]){const d=dleft(up[0].date);tip=d<0?`「${esc(up[0].title)}」已逾期，先處理它！`:d==0?`今天要完成「${esc(up[0].title)}」`:`最近的是「${esc(up[0].title)}」，還有 ${d} 天`}
+ if(tc.length)tip+=`｜今天有 ${tc.length} 堂課`;
+ const L=lv(),base=20*(L-1)**2,nx=20*L*L,pc=Math.min(100,(S.xp-base)/(nx-base)*100);
+ $('#app').innerHTML=head('指揮中心','歡迎回來，指揮官')+`
+ <div class="card"><h3>🎖️ LV${L}・${RANKS[Math.min(5,Math.floor((L-1)/2))]}</h3><p class="sub" style="margin-bottom:0">經驗 ${S.xp} / ${nx}・積分加成 ×${mult().toFixed(2)}</p><div class="bar"><i style="width:${pc}%"></i></div>
+ <div class="hud">${S.items.map(i=>`<span class="chip">${i}</span>`).join('')||'<span class="sub" style="margin:8px 0 0">尚未裝備任何道具，去裝備庫看看</span>'}</div></div>
+ <div class="card"><h3>💡 今日小提醒</h3><p>${tip}</p></div>
+ <div class="grid">
+ <div class="card"><div class="stat">${up.length}</div>待辦任務</div>
+ <div class="card"><div class="stat">${tm}</div>今日專注(分)</div>
+ <div class="card"><div class="stat">${S.pts}</div>可用積分</div>
+ <div class="card"><div class="stat">${S.records.length}</div>練習次數</div></div>
+ <div class="card"><h3>⏳ 倒數</h3>${up.slice(0,4).map(t=>`<div class="item"><span>${esc(t.title)}</span><span class="tag">${dleft(t.date)} 天</span></div>`).join('')||'<p class="sub">還沒有任務</p>'}</div>`},
+sched(){
+ $('#app').innerHTML=head('行程概覽','課表與行事曆')+`
+ <div class="card"><h3>新增課程</h3><div class="row"><input id="cn" placeholder="課程名稱"><select id="cd">${days.map((d,i)=>`<option value="${i}">週${d}</option>`).join('')}</select><select id="cp">${[1,2,3,4,5,6,7,8].map(i=>`<option value="${i}">第${i}節</option>`).join('')}</select><select id="cc">${colors.map((c,i)=>`<option value="${c}">顏色 ${i+1}</option>`).join('')}</select><button class="btn" onclick="addC()">新增</button></div></div>
+ <div class="card tt"><table class="tb"><tr><th></th>${days.map(d=>`<th>週${d}</th>`).join('')}</tr>${[1,2,3,4,5,6,7,8].map(p=>`<tr><th>${p}</th>${days.map((_,d)=>{const c=S.courses.find(c=>c.day==d&&c.p==p);return `<td>${c?`<div class="cls" style="background:${c.color}" onclick="editC('${c.id}')">${esc(c.name)}</div>`:''}</td>`}).join('')}</tr>`).join('')}</table><p class="sub" style="margin:8px 0 0">點課程可編輯 / 複製 / 刪除（同一格重複新增會覆蓋）</p></div>
+ <div class="card"><h3>📆 行事曆</h3><div class="row" style="align-items:center;flex-wrap:nowrap"><button class="btn g s" onclick="mon(-1)">◀</button><b style="text-align:center">${calM.getFullYear()} / ${calM.getMonth()+1}</b><button class="btn g s" onclick="mon(1)">▶</button></div>${cal()}
+ <p class="sub" style="margin:8px 0 0">點事件可刪除；粉紅色為任務截止日</p>
+ <div class="row" style="margin-top:12px"><input id="et" placeholder="事件"><input id="ed" type="date" value="${today()}"><button class="btn" onclick="addE()">加入</button></div></div>`},
+task(){
+ const L=[...S.tasks].sort((a,b)=>a.done-b.done||a.date.localeCompare(b.date));
+ $('#app').innerHTML=head('作業任務','作業、考試、倒數｜完成任務 +5 積分')+`
+ <div class="card"><div class="row"><input id="tt" placeholder="標題"><select id="tk"><option>作業</option><option>考試</option><option>複習</option></select><input id="td" type="date" value="${today()}"><select id="tp"><option value="hi">高優先</option><option value="md" selected>中優先</option><option value="lo">低優先</option></select><button class="btn" onclick="addT()">新增</button></div></div>
+ ${L.map(t=>{const d=dleft(t.date);return `<div class="item ${t.done?'done':''}"><div><div class="t">${esc(t.title)}</div><span class="tag ${t.pr}">${t.kind}</span> <span class="tag">${t.date}</span> ${t.done?'':`<span class="tag ${d<=2?'hi':''}">${d<0?'逾期'+(-d)+'天':d==0?'今天':'剩 '+d+' 天'}</span>`}</div><div style="white-space:nowrap"><button class="btn s" onclick="doneT('${t.id}')">${t.done?'↩':'✔'}</button> <button class="btn g s" onclick="del('tasks','${t.id}',R.task)">🗑</button></div></div>`}).join('')||'<p class="sub">目前沒有任務</p>'}`},
+note(){
+ $('#app').innerHTML=head('筆記整理','貼上內容，一鍵產生重點摘要')+`
+ <div class="card"><input id="nt" placeholder="標題" style="margin-bottom:8px"><textarea id="nb" placeholder="貼上筆記內容..."></textarea><div class="row" style="margin-top:8px"><button class="btn" onclick="addN()">儲存並摘要</button></div></div>
+ ${S.notes.map(n=>`<div class="card"><h3>${esc(n.title)}</h3><p class="sub">重點摘要</p><ul style="padding-left:20px;line-height:1.7">${n.sum.map(s=>`<li>${esc(s)}</li>`).join('')}</ul><div class="row" style="margin-top:10px"><button class="btn g s" onclick="noteQ('${n.id}')">轉成小考</button><button class="btn g s" onclick="del('notes','${n.id}',R.note)">刪除</button></div></div>`).join('')}`},
+quiz(){
+ $('#app').innerHTML=head('即時練習','自訂小考｜答對 +2 積分，錯題立即看解析')+`
+ <div class="card"><h3>新增題目</h3><div class="row"><input id="qs" placeholder="科目"><input id="qq" placeholder="題目"></div><div class="row"><input id="o0" placeholder="選項 A"><input id="o1" placeholder="選項 B"><input id="o2" placeholder="選項 C"><input id="o3" placeholder="選項 D"></div><div class="row"><select id="qa"><option value="0">答案 A</option><option value="1">答案 B</option><option value="2">答案 C</option><option value="3">答案 D</option></select><input id="qe" placeholder="解析"><button class="btn" onclick="addQ()">新增</button></div></div>
+ <div class="card"><h3>開始練習</h3><p class="sub">目前題庫：${S.quizzes.length} 題</p><div class="row"><select id="qc"><option value="5">5 題</option><option value="10">10 題</option><option value="999">全部</option></select><button class="btn" onclick="startQ()">開始</button><button class="btn g" onclick="clrQ()">清空題庫</button></div></div><div id="qz"></div>`},
+report(){
+ const by={};S.records.forEach(r=>{by[r.subj]=by[r.subj]||[0,0];by[r.subj][1]++;if(r.ok)by[r.subj][0]++});
+ const ks=Object.keys(by);
+ $('#app').innerHTML=head('學習報表','正確率與專注趨勢')+`
+ <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))"><div class="card"><h3>各科正確率(%)</h3><canvas id="c1" height="220"></canvas></div><div class="card"><h3>近 7 天專注(分)</h3><canvas id="c2" height="220"></canvas></div></div>
+ <div class="card"><h3>弱點單元（正確率低於 60%）</h3>${ks.filter(k=>by[k][0]/by[k][1]<.6).map(k=>`<div class="item"><span>${esc(k)}</span><span class="tag hi">${Math.round(by[k][0]/by[k][1]*100)}%</span></div>`).join('')||'<p class="sub">暫無弱點（或還沒練習）</p>'}</div>`;
+ bars('c1',ks,ks.map(k=>Math.round(by[k][0]/by[k][1]*100)),100);
+ const ds=[],vs=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=fmt(d);ds.push(k.slice(5));vs.push(S.pomo.filter(p=>p.date==k).reduce((a,b)=>a+b.min,0))}
+ bars('c2',ds,vs,Math.max(60,...vs))},
+pomo(){
+ $('#app').innerHTML=head('番茄鐘','專注一段時間，賺積分')+`<div class="card"><div class="ring" id="rg"><div id="tm">25:00</div></div><div class="row" style="margin-top:16px;justify-content:center"><select id="pm" style="max-width:130px"><option value="25">25 分</option><option value="15">15 分</option><option value="5">5 分</option><option value="1">1 分(測試)</option></select><button class="btn" onclick="pStart()">開始</button><button class="btn g" onclick="pStop()">停止</button></div><p class="sub" style="text-align:center">完成 1 分鐘 = 1 積分（含裝備加成）</p></div>`;
+ if(timer)pUp()},
+port(){
+ $('#app').innerHTML=head('學習歷程大綱','把經驗整理成可用的歷程')+`
+ <div class="card"><div class="row"><input id="pt" placeholder="主題 / 科目"><select id="pk"><option>課程學習</option><option>自主學習</option><option>社團活動</option><option>競賽成果</option></select></div><textarea id="pc" placeholder="做了什麼？學到什麼？反思與備註..."></textarea><div class="row" style="margin-top:8px"><button class="btn" onclick="addP()">加入歷程</button><button class="btn g" onclick="genP()">產生大綱</button></div></div><div id="po"></div>
+ ${S.portfolio.map(p=>`<div class="item"><div><b>${esc(p.t)}</b> <span class="tag">${esc(p.k)}</span><div class="sub" style="margin:4px 0 0">${esc(p.c)}</div></div><button class="btn g s" onclick="del('portfolio','${p.id}',R.port)">🗑</button></div>`).join('')}`},
+ai(){
+ $('#app').innerHTML=head('AI 助手','讀書建議與陪伴（離線小助手）')+`<div class="card"><div class="chat" id="ch">${S.chat.map(m=>`<div class="msg ${m.r}">${esc(m.t)}</div>`).join('')||'<div class="msg ai">嗨，指揮官！可以跟我說「我好累」「怎麼排時間」「今天要做什麼」</div>'}</div><div class="row"><input id="ci" placeholder="輸入訊息..." onkeydown="if(event.key==='Enter')send()"><button class="btn" onclick="send()">送出</button></div></div>`;
+ const c=$('#ch');c.scrollTop=c.scrollHeight},
+shop(){
+ $('#app').innerHTML=head('裝備庫','用積分解鎖科技裝備，永久提升積分獲得量')+`<div class="card"><b>可用積分 ⭐ ${S.pts}</b>・目前加成 <b>×${mult().toFixed(2)}</b></div><div class="grid">${GEAR.map(g=>{const o=S.items.includes(g[0]);return `<div class="card gear r${g[4]} ${o?'own':''}"><div class="rk">${RK[g[4]]}</div><div class="gi">${g[0]}</div><h3>${g[1]}</h3><p class="sub" style="margin-bottom:10px">積分 +${g[3]}%</p><button class="btn" style="width:100%" ${o?'disabled':''} onclick="buy('${g[0]}')">${o?'已裝備':'解鎖 '+g[2]+' ⭐'}</button></div>`}).join('')}</div>`}
+};
+function mon(n){calM.setMonth(calM.getMonth()+n);R.sched()}
+function cal(){
+ const y=calM.getFullYear(),m=calM.getMonth(),f=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate();
+ let h='<div class="cal">'+['日','一','二','三','四','五','六'].map(d=>`<div class="h">${d}</div>`).join('')+'<div class="e"></div>'.repeat(f);
+ for(let i=1;i<=n;i++){const ds=`${y}-${p2(m+1)}-${p2(i)}`;
+  const ev=[...S.events.filter(e=>e.date==ds).map(e=>[e.title,e.id,0]),...S.tasks.filter(t=>t.date==ds).map(t=>[t.title,t.id,1])];
+  h+=`<div class="${ds==today()?'today':''}">${i}${ev.map(e=>e[2]?`<span class="dot t">${esc(e[0])}</span>`:`<span class="dot" onclick="del('events','${e[1]}',R.sched)">${esc(e[0])}</span>`).join('')}</div>`}
+ return h+'</div>'}
+const id=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function del(k,i,fn){if(!confirm('確定刪除？'))return;S[k]=S[k].filter(x=>x.id!=i);save(k);fn()}
+function addC(){const n=$('#cn').value.trim();if(!n)return toast('請輸入課程名稱');const d=+$('#cd').value,p=+$('#cp').value;S.courses=S.courses.filter(c=>!(c.day==d&&c.p==p));S.courses.push({id:id(),name:n,day:d,p,color:$('#cc').value});save('courses');R.sched()}
+function editC(i){const c=S.courses.find(x=>x.id==i);if(!c)return;const a=prompt('輸入新名稱；輸入 del 刪除；輸入 copy 複製到下一節',c.name);if(a===null)return;
+ if(a=='del')S.courses=S.courses.filter(x=>x.id!=i);else if(a=='copy'){if(c.p<8&&!S.courses.find(x=>x.day==c.day&&x.p==c.p+1))S.courses.push({...c,id:id(),p:c.p+1});else toast('下一節已有課或已到最後一節')}else if(a.trim())c.name=a.trim();save('courses');R.sched()}
+function addE(){const t=$('#et').value.trim(),d=$('#ed').value;if(!t||!d)return toast('請輸入事件與日期');S.events.push({id:id(),title:t,date:d});save('events');R.sched()}
+function addT(){const t=$('#tt').value.trim(),d=$('#td').value;if(!t||!d)return toast('請輸入標題與日期');S.tasks.push({id:id(),title:t,kind:$('#tk').value,date:d,pr:$('#tp').value,done:false,got:0});save('tasks');R.task()}
+function doneT(i){const t=S.tasks.find(x=>x.id==i);if(!t)return;t.done=!t.done;if(t.done){t.got=addPts(5);toast('任務完成 +'+t.got+' ⭐')}else{S.pts=Math.max(0,S.pts-(t.got||0));S.xp=Math.max(0,S.xp-(t.got||0));t.got=0;save('pts');save('xp')}save('tasks');R.task()}
+function summarize(t){const ss=t.split(/[。！？!?\n.]+/).map(s=>s.trim()).filter(s=>s.length>6);if(ss.length<=4)return ss.length?ss:[t.slice(0,60)];
+ const sc=ss.map((s,i)=>({s,i,v:Math.min(s.length,80)+(/重要|關鍵|定義|公式|因此|所以|必須|考|key|important/i.test(s)?40:0)-i*.5}));
+ return sc.sort((a,b)=>b.v-a.v).slice(0,4).sort((a,b)=>a.i-b.i).map(x=>x.s)}
+function addN(){const t=$('#nt').value.trim()||'未命名筆記',b=$('#nb').value.trim();if(!b)return toast('請貼上筆記內容');S.notes.unshift({id:id(),title:t,body:b,sum:summarize(b)});save('notes');R.note()}
+function noteQ(i){const n=S.notes.find(x=>x.id==i);if(!n)return;let c=0;n.sum.forEach(s=>{const w=s.split(/[，,、 ：:；;]/).filter(x=>x.length>1);if(!w.length)return;const k=w[Math.floor(w.length/2)];const op=[k,'以上皆非','無法判斷','不確定'].sort(()=>Math.random()-.5);S.quizzes.push({id:id(),subj:n.title,q:'填空：'+s.replace(k,'＿＿＿＿'),o:op,a:op.indexOf(k),e:'原句：'+s});c++});save('quizzes');toast('已新增 '+c+' 題');go('quiz')}
+function addQ(){const q=$('#qq').value.trim(),o=[0,1,2,3].map(i=>$('#o'+i).value.trim());if(!q||o.some(x=>!x))return toast('請填完整題目與四個選項');S.quizzes.push({id:id(),subj:$('#qs').value.trim()||'一般',q,o,a:+$('#qa').value,e:$('#qe').value.trim()||'無解析'});save('quizzes');R.quiz()}
+function clrQ(){if(S.quizzes.length&&confirm('清空所有題目？')){S.quizzes=[];save('quizzes');R.quiz()}}
+let QS=[],qi=0,qok=0;
+function startQ(){if(!S.quizzes.length)return toast('請先新增題目');QS=[...S.quizzes].sort(()=>Math.random()-.5).slice(0,+$('#qc').value);qi=0;qok=0;showQ()}
+function showQ(){const z=$('#qz');if(qi>=QS.length){z.innerHTML=`<div class="card"><h3>🎉 完成！</h3><p>答對 ${qok} / ${QS.length}（${Math.round(qok/QS.length*100)}%）</p></div>`;return}
+ const q=QS[qi];z.innerHTML=`<div class="card"><p class="sub">${qi+1}/${QS.length}・${esc(q.subj)}</p><h3>${esc(q.q)}</h3>${q.o.map((o,i)=>`<button class="opt" onclick="ans(${i})">${'ABCD'[i]}. ${esc(o)}</button>`).join('')}<div id="ex"></div></div>`;z.scrollIntoView({behavior:'smooth',block:'start'})}
+function ans(i){const q=QS[qi],b=document.querySelectorAll('.opt');if(!b.length||b[0].disabled)return;b.forEach((x,j)=>{x.disabled=true;if(j==q.a)x.classList.add('ok');else if(j==i)x.classList.add('no')});
+ const ok=i==q.a;let g=0;if(ok){qok++;g=addPts(2)}S.records.push({subj:q.subj,ok,date:today()});save('records');
+ $('#ex').innerHTML=`<p style="margin:10px 0">${ok?'✅ 答對了 +'+g+' 積分':'❌ 答錯了'}<br><span class="sub">解析：${esc(q.e)}</span></p><button class="btn" onclick="qi++;showQ()">${qi+1>=QS.length?'看結果':'下一題'}</button>`}
+function bars(cid,lab,val,max){const c=document.getElementById(cid);if(!c)return;const dpr=devicePixelRatio||1,w=c.clientWidth,h=220;c.width=w*dpr;c.height=h*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);x.font='12px sans-serif';
+ if(!lab.length){x.fillStyle='#8f9bc7';x.fillText('尚無資料',10,30);return}
+ const bw=Math.min(40,w/lab.length*.6),g=w/lab.length;lab.forEach((l,i)=>{const bh=(val[i]/max)*(h-60),px=i*g+(g-bw)/2;const gr=x.createLinearGradient(0,h-30-bh,0,h-30);gr.addColorStop(0,'#00e5ff');gr.addColorStop(1,'#8b5cf6');x.fillStyle=gr;x.fillRect(px,h-30-bh,bw,bh);x.fillStyle='#e8ecff';x.textAlign='center';x.fillText(val[i],px+bw/2,h-34-bh);x.fillStyle='#8f9bc7';x.fillText(l.slice(0,6),px+bw/2,h-10)})}
+function pUp(){const e=$('#tm');if(!e)return;e.textContent=p2(Math.floor(P.left/60))+':'+p2(P.left%60);$('#rg').style.setProperty('--p',((P.tot-P.left)/P.tot*100)+'%')}
+function pStart(){pStop();P.tot=+$('#pm').value*60;P.left=P.tot;pUp();
+ timer=setInterval(()=>{P.left--;pUp();if(P.left<=0){clearInterval(timer);timer=null;const mn=P.tot/60;S.pomo.push({date:today(),min:mn});save('pomo');const g=addPts(mn);toast('🎉 專注 '+mn+' 分鐘完成 +'+g+' ⭐')}},1000)}
+function pStop(){if(timer){clearInterval(timer);timer=null}const e=$('#tm');if(e){e.textContent=p2(+($('#pm')?.value||25))+':00';$('#rg').style.setProperty('--p','0%')}}
+function addP(){const t=$('#pt').value.trim(),c=$('#pc').value.trim();if(!t||!c)return toast('請填主題與內容');S.portfolio.push({id:id(),t,k:$('#pk').value,c});save('portfolio');R.port()}
+function genP(){if(!S.portfolio.length)return toast('先加入一些歷程');const g={};S.portfolio.forEach(p=>(g[p.k]=g[p.k]||[]).push(p));
+ $('#po').innerHTML='<div class="card"><h3>📄 歷程大綱</h3>'+Object.keys(g).map(k=>`<p><b>${esc(k)}</b>（${g[k].length} 項）</p><ul style="padding-left:20px;margin-bottom:8px">${g[k].map(p=>`<li>${esc(p.t)}：${esc(p.c.slice(0,40))}</li>`).join('')}</ul>`).join('')+'</div>'}
+function reply(m){
+ if(/累|煩|壓力|難過|焦慮/.test(m))return '辛苦了，先深呼吸。試試一個 15 分鐘的小番茄，做完就休息，好嗎？';
+ if(/排|計畫|規劃|時間/.test(m))return '建議：1) 先列出所有截止日 2) 先做高優先 3) 25 分專注＋5 分休息 4) 睡前花 5 分鐘複習。';
+ if(/今天|待辦|做什麼/.test(m)){const u=S.tasks.filter(t=>!t.done).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,3);return u.length?'優先處理：'+u.map(t=>`${t.title}(${dleft(t.date)}天)`).join('、'):'目前沒有待辦，可以去練習一下小考！'}
+ if(/考試|複習/.test(m))return '考前建議：看筆記摘要→做小考找弱點→針對弱點重做，最後一天只複習錯題。';
+ if(/專注|分心|手機/.test(m))return '把手機放到看不到的地方，開啟番茄鐘，只做一件事。';
+ return '我在聽！你可以問我排時間、考試複習、專注，或今天要做什麼。'}
+function send(){const i=$('#ci'),m=i.value.trim();if(!m)return;S.chat.push({r:'me',t:m},{r:'ai',t:reply(m)});S.chat=S.chat.slice(-40);save('chat');R.ai()}
+function buy(ic){const g=GEAR.find(x=>x[0]==ic);if(!g||S.items.includes(ic))return;if(S.pts<g[2])return toast('積分不足，還差 '+(g[2]-S.pts)+' ⭐');S.pts-=g[2];S.items.push(ic);save('items');save('pts');toast('已裝備 '+g[1]+'！');R.shop()}
+addEventListener('resize',()=>{if(cur=='report')R.report()});
+nav();save('pts');go('home');
+</script>
+</body>
+</html>
